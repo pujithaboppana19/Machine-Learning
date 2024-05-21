@@ -1,0 +1,22 @@
+df5 = df4.copy()
+df5['Price_per_sqft'] =df5['price']*100000/df5['total_sqft']
+df5.head()
+
+df5.location.unique()
+
+len(df5.location.unique())
+
+df5.location = df5.location.apply(lambda x: x.strip())
+location_stats = df5.groupby('location')['location'].agg('count')
+location_stats
+
+len(location_stats[location_stats<=10])
+
+location_stats_less_than_10 = location_stats[location_stats<=10]
+location_stats_less_than_10
+
+len(df5.location.unique())
+
+df5.location = df5.location.apply(lambda x: 'other' if x in location_stats_less_than_10 else x)
+len(df5.location.unique())
+
